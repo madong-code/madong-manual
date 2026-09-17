@@ -303,7 +303,7 @@ buttonText: {
 tableActions: [
   {
     label: '重置密码',
-    auth: 'system:user:reset-pwd',
+    auth: 'system:admin:change_password',
     onClick: (row) => handleReset(row),
   },
 ],
@@ -312,7 +312,7 @@ tableActions: [
 dropDownActions: [
   {
     label: '分配角色',
-    auth: 'system:user:grant',
+    auth: 'system:admin:grant_role',
     onClick: (row) => openGrant(row),
     popConfirm: { title: '确认执行？' },
   },

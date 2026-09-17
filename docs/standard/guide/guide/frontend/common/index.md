@@ -147,8 +147,8 @@ RadioGroup · Select · Space · Switch · Textarea · TimePicker · TreeSelect 
 统一格式 `<域>:<模块>:<动作>`：
 
 ```
-system:user:read     system:user:create
-system:user:update   system:user:delete
+system:admin:read    system:admin:create
+system:admin:update  system:admin:delete
 member:tag:assign_permissions
 ```
 

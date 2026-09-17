@@ -1,4 +1,4 @@
-﻿# 权限控制
+# 权限控制
 
 ---
 
@@ -108,8 +108,8 @@ accessStore.setSuperCodes(['*', 'admin']);   // 可自定义超级码
 
 ```vue
 <!-- 按权限码 -->
-<el-button v-access:code="'system:user:create'">新增</el-button>
-<el-button v-access:code="['system:user:create', 'system:user:import']">
+<el-button v-access:code="'system:admin:create'">新增</el-button>
+<el-button v-access:code="['system:admin:create', 'system:admin:import']">
   新增或导入
 </el-button>
 
@@ -160,7 +160,7 @@ import { AccessControl } from '#/core/access';
 
 <template>
   <!-- 按权限码 -->
-  <AccessControl type="code" :codes="['system:user:create']">
+  <AccessControl type="code" :codes="['system:admin:create']">
     <el-button>新增</el-button>
   </AccessControl>
 
@@ -286,12 +286,12 @@ persist: {
 统一格式：`<业务域>:<模块>:<动作>`
 
 ```
-system:user:read              查询
-system:user:create            新增
-system:user:update            编辑
-system:user:delete            删除
-system:user:export            导出
-system:user:import            导入
+system:admin:read             查询
+system:admin:create           新增
+system:admin:update           编辑
+system:admin:delete           删除
+system:admin:export           导出
+system:admin:import           导入
 system:role:assign_permissions   分配权限
 member:tag:batch_assign          批量打标签
 ```
