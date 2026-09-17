@@ -101,6 +101,7 @@
 
   - [v5.1](guide/changelog/v5.1.md)
   - [v5.1.1](guide/changelog/v5.1.1.md)
+  - [v5.1.2](guide/changelog/v5.1.2.md)
   - [升级指南](guide/changelog/upgrade.md)
 
 - [🔐 内部资料（独立密钥）](guide/internal/secret.md)
