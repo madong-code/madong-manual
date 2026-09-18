@@ -13,7 +13,7 @@
   <script>
     (function () {
       function bustUrl(u) {
-        if (!u || /^(https?:)?\/\//.test(u) || u.indexOf('_t=') > -1) return u;
+        if (!u || /^(https?:)?\/\//.test(u) || u.indexOf('_t=') > -1 || u.indexOf('?v=') > -1) return u;
         return u + (u.indexOf('?') > -1 ? '&' : '?') + '_t=' + Date.now();
       }
       if (window.fetch) {
@@ -39,15 +39,29 @@
     })();
   </script>
 
-  <!-- 共享主题引擎：先于 navbar.js 执行，保证首屏即应用已保存的主题 -->
-  <script>document.write('<script src="assets/js/theme-core.js?_t=' + Date.now() + '"><\/script>');</script>
-  <!-- 开发期禁用缓存：本地样式每次带时间戳加载，避免旧缓存 -->
+  <!-- 首屏主题预置：同步应用已保存主题，消除明暗闪烁 -->
   <script>
     (function () {
-      ['assets/css/theme-color.css', 'assets/css/theme-ui.css', 'assets/css/navbar.css', 'assets/css/landing.css']
-        .forEach(function (h) { document.write('<link rel="stylesheet" href="' + h + '?_t=' + Date.now() + '">'); });
+      var p = {};
+      try { p = JSON.parse(localStorage.getItem('madong.docs.theme') || '{}'); } catch (e) {}
+      if (p.mode === 'dark' || p.mode === 'light') document.documentElement.setAttribute('data-theme', p.mode);
+      if (p.color) document.documentElement.setAttribute('data-color', p.color);
     })();
   </script>
+  <!-- 首屏兜底样式：外部 CSS 就绪前不白屏，并整体淡入 -->
+  <style>
+    html { background: #f5f7fa; color-scheme: light; }
+    html[data-theme="dark"] { background: #0b0f1a; color-scheme: dark; }
+    body { animation: bootFade .22s ease both; }
+    @keyframes bootFade { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+  <!-- 本地样式：静态引入 + 版本号（可缓存；改版本见 package.json 的 assetVersion，执行 npm run stamp） -->
+  <link rel="stylesheet" href="assets/css/theme-color.css?v=20260918" />
+  <link rel="stylesheet" href="assets/css/theme-ui.css?v=20260918" />
+  <link rel="stylesheet" href="assets/css/navbar.css?v=20260918" />
+  <link rel="stylesheet" href="assets/css/landing.css?v=20260918" />
+  <!-- 共享主题引擎（提供 API / 跨页同步） -->
+  <script src="assets/js/theme-core.js?v=20260918"></script>
 </head>
 <body>
   <main class="landing">
@@ -161,9 +175,9 @@
 
   <footer id="site-footer" class="site-footer"></footer>
 
-  <script>document.write('<script src="assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
-  <script>document.write('<script src="assets/js/navbar.js?_t=' + Date.now() + '"><\/script>');</script>
-  <script>document.write('<script src="assets/js/analytics.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script src="assets/js/site-config.js?v=20260918"></script>
+  <script src="assets/js/navbar.js?v=20260918"></script>
+  <script src="assets/js/analytics.js?v=20260918"></script>
   <script>if (window.DocsifyAnalytics) window.DocsifyAnalytics.init();</script>
 </body>
 </html>

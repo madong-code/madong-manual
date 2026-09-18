@@ -1,0 +1,9 @@
+{
+  "name": "madong-manual",
+  "private": true,
+  "description": "Madong 手册站（门户 + 文档）。assetVersion 为门户静态资源版本号，改这里后执行 npm run stamp 全站生效。",
+  "assetVersion": "20260918",
+  "scripts": {
+    "stamp": "node scripts/stamp-version.mjs"
+  }
+}
