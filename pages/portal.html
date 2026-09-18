@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <title>文档中心 · Madong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Madong 多手册文档中心 —— 标准版 / SaaS 多租户版等手册统一索引。" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- 开发期禁用缓存：给同源 .md/.js/.css 请求追加时间戳，强制实时加载 -->
+  <script>
+    (function () {
+      function bustUrl(u) {
+        if (!u || /^(https?:)?\/\//.test(u) || u.indexOf('_t=') > -1) return u;
+        return u + (u.indexOf('?') > -1 ? '&' : '?') + '_t=' + Date.now();
+      }
+      if (window.fetch) {
+        var _f = window.fetch;
+        window.fetch = function (input, init) {
+          var url = typeof input === 'string' ? input : (input && input.url) || '';
+          if (/\.(md|js|css)(\?|#|$)/.test(url)) {
+            if (typeof input === 'string') input = bustUrl(url);
+            else if (input && input.url) input = new Request(bustUrl(input.url), input);
+          }
+          return _f.call(this, input, init);
+        };
+      }
+      var mo = window.MutationObserver && new MutationObserver(function (muts) {
+        muts.forEach(function (m) {
+          m.addedNodes.forEach(function (n) {
+            if (n.tagName === 'SCRIPT' && n.src) n.src = bustUrl(n.src);
+            if (n.tagName === 'LINK' && n.href) n.href = bustUrl(n.href);
+          });
+        });
+      });
+      if (mo) mo.observe(document.documentElement, { childList: true, subtree: true });
+    })();
+  </script>
+
+  <!-- 共享主题引擎：先于 navbar.js 执行，保证首屏即应用已保存的主题 -->
+  <script>document.write('<script src="../assets/js/theme-core.js?_t=' + Date.now() + '"><\/script>');</script>
+  <!-- 开发期禁用缓存：本地样式每次带时间戳加载，避免旧缓存 -->
+  <script>
+    (function () {
+      ['../assets/css/theme-color.css', '../assets/css/theme-ui.css', '../assets/css/navbar.css', '../assets/css/portal.css']
+        .forEach(function (h) { document.write('<link rel="stylesheet" href="' + h + '?_t=' + Date.now() + '">'); });
+    })();
+  </script>
+</head>
+<body>
+  <div class="portal">
+    <div class="portal__head">
+      <h1 class="portal__hero-title">文档中心</h1>
+      <p class="portal__hero-sub">Madong 多手册文档站 —— 按应用 / 插件分册，统一索引，互不干扰。</p>
+    </div>
+
+    <div class="portal__bar">
+      <input id="portal-search" class="portal__search" type="text" placeholder="搜索手册名称 / 描述 / 标签…" />
+      <div class="portal__filters">
+        <span class="portal__chip active" data-status="all">全部</span>
+        <span class="portal__chip" data-status="active">在用</span>
+        <span class="portal__chip" data-status="wip">建设中</span>
+        <span class="portal__chip" data-status="deprecated">已废弃</span>
+      </div>
+    </div>
+
+    <!-- JS 渲染挂载点 -->
+    <div id="portal-mount"></div>
+
+    <!-- 无 JS / 加载失败兜底（链接相对 pages/ 用 ../ 返回 manual 根） -->
+    <div id="portal-fallback" style="display:none">
+      <section class="portal__group">
+        <h2 class="portal__group-title">应用手册</h2>
+        <div class="portal__grid">
+          <a class="card" href="../docs/standard/">
+            <div class="card__head"><div class="card__icon">标</div><div><div class="card__name">标准版手册</div><div class="card__meta"><span class="badge badge--active">在用</span><span class="badge badge--ver">v5.x</span></div></div></div>
+            <div class="card__desc">单租户标准版（template/admin 前端体系）。</div>
+            <span class="card__enter">进入手册 <span class="arrow">→</span></span>
+          </a>
+          <a class="card" href="../docs/saas/">
+            <div class="card__head"><div class="card__icon">租</div><div><div class="card__name">多租户版手册</div><div class="card__meta"><span class="badge badge--active">在用</span><span class="badge badge--ver">v5.x</span></div></div></div>
+            <div class="card__desc">多租户 SaaS 版（template/mono 前端体系 + SaaS 设计）。</div>
+            <span class="card__enter">进入手册 <span class="arrow">→</span></span>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <p class="portal__hint">新增手册请复制 <code>docs/_template/</code> 并在 <code>docs.json</code> 注册一行 · 详见 AI-GUIDE.md</p>
+  </div>
+
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script>document.write('<script src="../assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script>document.write('<script src="../assets/js/navbar.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script>document.write('<script src="../assets/js/portal.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script>document.write('<script src="../assets/js/analytics.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script>if (window.DocsifyAnalytics) window.DocsifyAnalytics.init();</script>
+</body>
+</html>

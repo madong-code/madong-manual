@@ -8,7 +8,7 @@
  * 修改后硬刷新（Ctrl/Cmd+Shift+R）即可生效。
  */
 window.SITE_CONFIG = {
-  title: 'Madong 文档中心',
+  title: 'Madong',
   copyright: '© 2026 Madong 极速开发框架 · 文档由 Docsify 驱动',
   logo: '/assets/img/logo.png', // 留空则使用文字 Logo "M"
   footerLinks: [

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <title>Madong 文档中心</title>
+  <title>Madong · 极速后台开发框架</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Madong 极速后台开发框架 · 多手册文档中心" />
+  <meta name="description" content="Madong —— 基于 Webman + Vue3 的极速后台开发框架，多手册文档体系、插件化架构与密钥门禁。" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -39,138 +39,131 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="assets/css/portal.css" />
-  <link rel="stylesheet" href="assets/css/gate.css" />
-  <link rel="stylesheet" href="assets/css/contact.css" />
-</head>
-<body>
-  <div class="portal">
-    <header class="portal__top">
-      <div class="portal__brand">
-        <div class="portal__logo">
-          <img id="portal-logo" class="portal__logo-img" src="" alt="" style="display:none" />
-          <span id="portal-logo-text">M</span>
-        </div>
-        <div>
-          <div class="portal__title">Madong 文档中心</div>
-          <div class="portal__sub">Webman + Vue 3 极速后台开发框架 · 多手册文档站</div>
-        </div>
-      </div>
-      <div class="portal__repo">
-        <button class="portal__repo-btn" type="button">
-          仓库源码
-          <svg class="portal__repo-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="portal__repo-menu">
-          <a href="https://github.com/madong" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://gitee.com/madong" target="_blank" rel="noopener">Gitee</a>
-          <a href="https://gitcode.com/madong" target="_blank" rel="noopener">GitCode</a>
-        </div>
-      </div>
-    </header>
-
-    <div class="portal__divider"></div>
-
-    <div class="portal__bar">
-      <input id="portal-search" class="portal__search" type="text" placeholder="搜索手册名称 / 描述 / 标签…" />
-      <div class="portal__filters">
-        <span class="portal__chip active" data-status="all">全部</span>
-        <span class="portal__chip" data-status="active">在用</span>
-        <span class="portal__chip" data-status="wip">建设中</span>
-        <span class="portal__chip" data-status="deprecated">已废弃</span>
-      </div>
-    </div>
-
-    <!-- JS 渲染挂载点 -->
-    <div id="portal-mount"></div>
-
-    <!-- 无 JS / 加载失败兜底 -->
-    <div id="portal-fallback">
-      <section class="portal__group">
-        <h2 class="portal__group-title">应用手册</h2>
-        <div class="portal__grid">
-          <a class="card" href="docs/standard/">
-            <div class="card__head"><div class="card__icon">标</div><div><div class="card__name">标准版手册</div><div class="card__meta"><span class="badge badge--active">在用</span><span class="badge badge--ver">v5.x</span></div></div></div>
-            <div class="card__desc">单租户标准版（template/admin 前端体系）。</div>
-            <span class="card__enter">进入手册 →</span>
-          </a>
-          <a class="card" href="docs/saas/">
-            <div class="card__head"><div class="card__icon">租</div><div><div class="card__name">多租户版手册</div><div class="card__meta"><span class="badge badge--active">在用</span><span class="badge badge--ver">v5.x</span></div></div></div>
-            <div class="card__desc">多租户 SaaS 版（template/mono 前端体系 + SaaS 设计）。</div>
-            <span class="card__enter">进入手册 →</span>
-          </a>
-        </div>
-      </section>
-    </div>
-
-    <p class="portal__hint">新增手册请复制 <code>docs/_template/</code> 并在 <code>docs.json</code> 注册一行 · 详见 AI-GUIDE.md</p>
-
-    <footer class="portal__footer">
-      <span id="portal-copyright">© 2026 Madong 极速开发框架 · 文档由 Docsify 驱动</span>
-      <span class="portal__footer-links" id="portal-footer-links">
-        <a href="./">文档中心</a>
-        <a href="https://github.com/madong" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://gitee.com/madong" target="_blank" rel="noopener">Gitee</a>
-        <a href="https://gitcode.com/madong" target="_blank" rel="noopener">GitCode</a>
-      </span>
-    </footer>
-  </div>
-
-  <script>document.write('<script src="assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
+  <!-- 共享主题引擎：先于 navbar.js 执行，保证首屏即应用已保存的主题 -->
+  <script>document.write('<script src="assets/js/theme-core.js?_t=' + Date.now() + '"><\/script>');</script>
+  <!-- 开发期禁用缓存：本地样式每次带时间戳加载，避免旧缓存 -->
   <script>
-    // 首页版权 / 标题 / 底部链接同样由 site-config.js 驱动（此前为硬编码，改配置不生效）
     (function () {
-      var c = window.SITE_CONFIG || {};
-      var el = document.getElementById('portal-copyright');
-      if (el && c.copyright) el.textContent = c.copyright;
-      if (c.title) document.title = c.title;
-
-      // 品牌 Logo：配置了就显示图片并隐藏文字 "M"
-      // 首页去掉前导 "/"，改用相对路径，部署到子路径（如 GitHub Pages /xxx/）时同样可用
-      var lg = document.getElementById('portal-logo');
-      var lt = document.getElementById('portal-logo-text');
-      if (lg && c.logo) {
-        var src = String(c.logo);
-        if (!/^https?:/i.test(src)) src = src.replace(/^\/+/, '');
-        lg.src = src;
-        lg.style.display = '';
-        lg.style.width = '100%';
-        lg.style.height = '100%';
-        lg.style.objectFit = 'contain';
-        if (lt) lt.style.display = 'none';
-      }
-
-      var lc = document.getElementById('portal-footer-links');
-      if (lc && c.footerLinks && c.footerLinks.length) {
-        // 保留首页本地入口（如"使用文档"这类站内相对链接），避免被配置整体覆盖后丢失
-        var keep = Array.prototype.filter.call(lc.querySelectorAll('a'), function (a) {
-          var h = a.getAttribute('href') || '';
-          return h && !/^(https?:)?\/\//.test(h) && h !== './' && h !== '/';
-        }).map(function (a) { return a.cloneNode(true); });
-
-        lc.innerHTML = '';
-        c.footerLinks.forEach(function (l) {
-          var a = document.createElement('a');
-          a.textContent = String(l.text != null ? l.text : '');
-          a.setAttribute('href', String(l.url != null ? l.url : '#'));
-          if (l.target) { a.setAttribute('target', l.target); a.setAttribute('rel', 'noopener noreferrer'); }
-          lc.appendChild(a);
-        });
-        keep.forEach(function (a) { lc.appendChild(a); });
-      }
+      ['assets/css/theme-color.css', 'assets/css/theme-ui.css', 'assets/css/navbar.css', 'assets/css/landing.css']
+        .forEach(function (h) { document.write('<link rel="stylesheet" href="' + h + '?_t=' + Date.now() + '">'); });
     })();
   </script>
+</head>
+<body>
+  <main class="landing">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__glow hero__glow--1"></div>
+      <div class="hero__glow hero__glow--2"></div>
+      <div class="hero__inner">
+        <div class="hero__copy">
+          <div class="hero__badges">
+            <span class="pill pill--solid">Open Source</span>
+            <span class="pill">Webman + Vue3</span>
+            <span class="pill">多手册体系</span>
+          </div>
+          <h1 class="hero__title">基于 <span class="grad">Madong</span> 构建的<br />极速后台开发框架</h1>
+          <p class="hero__sub">
+            用 PHP + Webman + Vue3 打造的一体化后台开发框架：常驻内存极速响应、多手册文档体系、
+            插件化分层架构与多级密钥门禁，让后端与前端在同一工程高效协作。
+          </p>
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="pages/portal.html">进入文档中心 <span class="btn__arrow">→</span></a>
+            <a class="btn btn--ghost" href="https://github.com/madong-code" target="_blank" rel="noopener noreferrer">GitHub <span class="nav__ext">↗</span></a>
+          </div>
+          <div class="hero__stats">
+            <div class="stat"><b>5.x</b><span>框架版本</span></div>
+            <div class="stat"><b>2+</b><span>官方手册</span></div>
+            <div class="stat"><b>PHP</b><span>Webman 驱动</span></div>
+          </div>
+        </div>
+
+        <!-- 产品视觉：代码窗口 mockup -->
+        <div class="hero__visual" aria-hidden="true">
+          <div class="codewin">
+            <div class="codewin__bar">
+              <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+              <span class="codewin__name">madong — 极速开发</span>
+            </div>
+            <pre class="codewin__body"><code><span class="c-key">php</span> <span class="c-fn">start.php</span>
+<span class="c-com">// Webman 常驻内存，请求零启动</span>
+<span class="c-key">use</span> App\Service\<span class="c-cls">OrderService</span>;
+
+<span class="c-var">$svc</span> = <span class="c-key">new</span> <span class="c-cls">OrderService</span>();
+<span class="c-var">$list</span> = <span class="c-var">$svc</span>-><span class="c-fn">paginate</span>(<span class="c-num">1</span>, <span class="c-num">20</span>);
+
+<span class="c-com">// 前端 Vue3 + Element Plus 同一工程</span>
+<span class="c-fn">npm</span> run dev  <span class="c-com"># 启动管理后台</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 特性亮点 -->
+    <section class="section">
+      <div class="section__head">
+        <span class="section__eyebrow">为何选择 Madong</span>
+        <h2 class="section__title">为效率而生的框架能力</h2>
+      </div>
+      <div class="features">
+        <article class="feature">
+          <div class="feature__icon">⚡</div>
+          <h3 class="feature__title">极速开发</h3>
+          <p class="feature__desc">Webman 常驻内存，请求零启动开销；约定优于配置，脚手架一键生成控制器、服务与 DAO。</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon">📚</div>
+          <h3 class="feature__title">多手册体系</h3>
+          <p class="feature__desc">每套应用 / 插件独立成册，门户统一索引。新增手册只改配置，正文互不影响。</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon">🧩</div>
+          <h3 class="feature__title">插件化架构</h3>
+          <p class="feature__desc">控制器 / 服务 / DAO 分层复用，能力可热插拔扩展，核心与业务解耦。</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon">🔐</div>
+          <h3 class="feature__title">密钥门禁</h3>
+          <p class="feature__desc">站点 / 手册 / 单篇文档多级密钥，前端轻校验即可保护内部资料。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 技术栈 -->
+    <section class="section">
+      <div class="section__head">
+        <span class="section__eyebrow">技术栈</span>
+        <h2 class="section__title">一套现代后端技术组合</h2>
+      </div>
+      <div class="tags">
+        <span class="tag">PHP</span>
+        <span class="tag">Webman</span>
+        <span class="tag">Vue 3</span>
+        <span class="tag">Element Plus</span>
+        <span class="tag">Nuxt</span>
+        <span class="tag">SaaS</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Redis</span>
+        <span class="tag">RabbitMQ</span>
+        <span class="tag">Docker</span>
+      </div>
+    </section>
+
+    <!-- 底部 CTA -->
+    <section class="cta">
+      <div class="cta__card">
+        <h2 class="cta__title">准备好开始构建了吗？</h2>
+        <p class="cta__sub">浏览文档中心，挑选你的版本手册，几分钟内跑起第一个后台。</p>
+        <a class="btn btn--primary btn--lg" href="pages/portal.html">进入文档中心 <span class="btn__arrow">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script>document.write('<script src="assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script>document.write('<script src="assets/js/navbar.js?_t=' + Date.now() + '"><\/script>');</script>
   <script>document.write('<script src="assets/js/analytics.js?_t=' + Date.now() + '"><\/script>');</script>
-  <script>
-    // 首页非 SPA：只需初始化，首屏由 hm.js 自动上报一次（避免重复计数）
-    if (window.DocsifyAnalytics) window.DocsifyAnalytics.init();
-  </script>
-  <script src="assets/js/gate.js"></script>
-  <script>
-    DocsifyGate.bind('public');
-    // 更新顶部 GitHub 链接（如有）
-  </script>
-  <script>document.write('<script src="assets/js/portal.js?_t=' + Date.now() + '"><\/script>');</script>
-  <script src="assets/js/contact.js"></script>
+  <script>if (window.DocsifyAnalytics) window.DocsifyAnalytics.init();</script>
 </body>
 </html>

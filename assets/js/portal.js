@@ -1,8 +1,11 @@
 /**
- * 门户首页：读取 docs.json 渲染手册卡片
+ * 文档中心：读取 docs.json 渲染手册卡片
  * - 按 type 分组（应用手册 / 插件手册）
  * - 支持名称/描述/标签搜索 + 状态筛选
  * - 无 JS / fetch 失败时由 #portal-fallback 兜底
+ *
+ * 资源根反推：通过本脚本自身 src 反推 manual 根目录，
+ * 因此放在 pages/ 子目录或子路径部署时也能正确加载 docs.json 与卡片链接。
  */
 (function () {
   var TYPE_LABEL = { app: '应用手册', plugin: '插件手册', guide: '指南' };
@@ -10,6 +13,24 @@
   var state = { kw: '', status: 'all' };
 
   function el(id) { return document.getElementById(id); }
+
+  /* 资源根反推（与 navbar.js 同源策略） */
+  function getBase() {
+    var scripts = document.getElementsByTagName('script');
+    for (var i = 0; i < scripts.length; i++) {
+      var s = scripts[i].src || '';
+      var m = s.match(/(.*\/)assets\/js\/portal\.js(?:\?.*)?$/);
+      if (m) return m[1];
+    }
+    return './';
+  }
+  var BASE = getBase();
+  function withBase(u) {
+    if (!u) return u;
+    if (/^(https?:)?\/\//i.test(u)) return u; // 外链原样
+    if (u.charAt(0) === '/') u = u.slice(1);  // 去前导斜杠，配合 BASE 兼容子路径部署
+    return BASE + u;
+  }
 
   function badge(status) {
     var cls = { active: 'badge--active', wip: 'badge--wip', deprecated: 'badge--deprecated' }[status] || 'badge--deprecated';
@@ -20,7 +41,7 @@
     var tags = (m.tags || []).map(function (t) { return '<span class="card__tag">' + esc(t) + '</span>'; }).join('');
     var icon = (m.name || '?').trim().charAt(0);
     return '' +
-      '<a class="card" href="' + m.entry + '" data-name="' + esc(m.name) + '" data-desc="' + esc(m.desc || '') + '" data-tags="' + esc((m.tags || []).join(' ')) + '" data-status="' + (m.status || '') + '">' +
+      '<a class="card" href="' + withBase(m.entry) + '" data-name="' + esc(m.name) + '" data-desc="' + esc(m.desc || '') + '" data-tags="' + esc((m.tags || []).join(' ')) + '" data-status="' + (m.status || '') + '">' +
       '  <div class="card__head">' +
       '    <div class="card__icon">' + esc(icon) + '</div>' +
       '    <div>' +
@@ -65,10 +86,7 @@
       var okSt = state.status === 'all' || c.dataset.status === state.status;
       c.style.display = (okKw && okSt) ? '' : 'none';
     });
-    // 隐藏空分组
     document.querySelectorAll('#portal-mount .portal__group').forEach(function (g) {
-      var visible = g.querySelectorAll('.card[style=""]').length + g.querySelectorAll('.card:not([style])').length;
-      // 简化：用 display 计算
       var any = [].slice.call(g.querySelectorAll('.card')).some(function (c) { return c.style.display !== 'none'; });
       g.style.display = any ? '' : 'none';
     });
@@ -87,25 +105,24 @@
     });
   }
 
-  function bindRepo() {
-    var box = document.querySelector('.portal__repo');
-    if (!box) return;
-    var btn = box.querySelector('.portal__repo-btn');
-    btn.addEventListener('click', function (e) { e.stopPropagation(); box.classList.toggle('open'); });
-    box.addEventListener('mouseenter', function () { box.classList.add('open'); });
-    box.addEventListener('mouseleave', function () { box.classList.remove('open'); });
-    document.addEventListener('click', function () { box.classList.remove('open'); });
-  }
-
   function init() {
     var fb = el('portal-fallback');
     if (fb) fb.style.display = 'none';
-    fetch('docs.json', { cache: 'no-store' })
+
+    // 支持从导航搜索带 ?q= 预填
+    try {
+      var q = new URLSearchParams(location.search).get('q');
+      if (q) {
+        var box = el('portal-search');
+        if (box) { box.value = q; state.kw = q; }
+      }
+    } catch (e) {}
+
+    fetch(withBase('docs.json'), { cache: 'no-store' })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         render(data.docs || []);
         bindControls();
-        bindRepo();
       })
       .catch(function () {
         if (fb) fb.style.display = '';

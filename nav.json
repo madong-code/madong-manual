@@ -1,0 +1,22 @@
+{
+  "brand": {
+    "text": "Madong",
+    "logo": "assets/img/logo.png",
+    "url": "index.html"
+  },
+  "nav": [
+    { "text": "首页", "url": "index.html" },
+    { "text": "文档中心", "url": "pages/portal.html" },
+    {
+      "text": "手册",
+      "type": "dropdown",
+      "items": [
+        { "text": "标准版手册", "url": "docs/standard/", "desc": "单租户标准版（Webman + Vue3）" },
+        { "text": "SaaS 多租户版", "url": "docs/saas/", "desc": "多租户 SaaS（Nuxt + 订阅套餐）" }
+      ]
+    },
+    { "text": "GitHub", "url": "https://github.com/madong-code", "external": true }
+  ],
+  "actions": [],
+  "tools": ["theme", "search"]
+}
