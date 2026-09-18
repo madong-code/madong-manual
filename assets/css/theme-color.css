@@ -1,0 +1,117 @@
+/* assets/css/theme-color.css
+ * 门户网站与导航的共享主题色（与 docs/assets/js/theme.js 的配色键保持一致）
+ * 通过 <html data-color="blue|green|purple|orange|teal"> 切换主色。
+ * 深色模式通过 <html data-theme="dark" data-color="..."> 覆盖为更亮的同色系。
+ */
+
+:root {
+  --site-primary: #2f6bff;
+  --site-primary-2: #5b8cff;
+  --site-primary-deep: #1e4fd8;
+  --site-primary-rgb: 47, 107, 255;
+  --site-primary-2-rgb: 91, 140, 255;
+
+  /* 主题面板（theme-ui.css）共享变量：门户与文档一致 */
+  --sw-panel-bg: #ffffff;
+  --sw-border: #e6e9f0;
+  --sw-border-strong: #e3e7ee;
+  --sw-divider: #eef1f6;
+  --sw-muted: #98a1b0;
+  --sw-icon: #5b6472;
+  --sw-mode-bg: #f8f9fb;
+  --sw-accent: var(--site-primary);
+  --sw-shadow: 0 12px 30px rgba(20, 26, 38, .18);
+}
+
+/* 未指定主题色时的深色兜底 */
+[data-theme="dark"] {
+  --site-primary: #5b8cff;
+  --site-primary-2: #8fb0ff;
+  --site-primary-deep: #2f6bff;
+  --site-primary-rgb: 91, 140, 255;
+  --site-primary-2-rgb: 143, 176, 255;
+
+  --sw-panel-bg: #161c2c;
+  --sw-border: rgba(255, 255, 255, .12);
+  --sw-border-strong: rgba(255, 255, 255, .16);
+  --sw-divider: rgba(255, 255, 255, .10);
+  --sw-muted: #9aa6bd;
+  --sw-icon: #c4ccd9;
+  --sw-mode-bg: rgba(255, 255, 255, .06);
+  --sw-accent: var(--site-primary-2);
+  --sw-shadow: 0 12px 30px rgba(0, 0, 0, .5);
+}
+
+/* 浅色主题：各品牌色 */
+html[data-color="blue"] {
+  --site-primary: #2f6bff;
+  --site-primary-2: #5b8cff;
+  --site-primary-deep: #1e4fd8;
+  --site-primary-rgb: 47, 107, 255;
+  --site-primary-2-rgb: 91, 140, 255;
+}
+html[data-color="green"] {
+  --site-primary: #1e9e63;
+  --site-primary-2: #34c285;
+  --site-primary-deep: #157a4b;
+  --site-primary-rgb: 30, 158, 99;
+  --site-primary-2-rgb: 52, 194, 133;
+}
+html[data-color="purple"] {
+  --site-primary: #7c4dff;
+  --site-primary-2: #9d77ff;
+  --site-primary-deep: #5e2fd1;
+  --site-primary-rgb: 124, 77, 255;
+  --site-primary-2-rgb: 157, 119, 255;
+}
+html[data-color="orange"] {
+  --site-primary: #e8841e;
+  --site-primary-2: #f2a347;
+  --site-primary-deep: #c4680f;
+  --site-primary-rgb: 232, 132, 30;
+  --site-primary-2-rgb: 242, 163, 71;
+}
+html[data-color="teal"] {
+  --site-primary: #14a3a3;
+  --site-primary-2: #2ec4c4;
+  --site-primary-deep: #0c7a7a;
+  --site-primary-rgb: 20, 163, 163;
+  --site-primary-2-rgb: 46, 196, 196;
+}
+
+/* 深色主题：提亮后的同色系 */
+html[data-theme="dark"][data-color="blue"] {
+  --site-primary: #5b8cff;
+  --site-primary-2: #8fb0ff;
+  --site-primary-deep: #2f6bff;
+  --site-primary-rgb: 91, 140, 255;
+  --site-primary-2-rgb: 143, 176, 255;
+}
+html[data-theme="dark"][data-color="green"] {
+  --site-primary: #34c285;
+  --site-primary-2: #5ed49a;
+  --site-primary-deep: #1e9e63;
+  --site-primary-rgb: 52, 194, 133;
+  --site-primary-2-rgb: 94, 212, 154;
+}
+html[data-theme="dark"][data-color="purple"] {
+  --site-primary: #9d77ff;
+  --site-primary-2: #b9a0ff;
+  --site-primary-deep: #7c4dff;
+  --site-primary-rgb: 157, 119, 255;
+  --site-primary-2-rgb: 185, 160, 255;
+}
+html[data-theme="dark"][data-color="orange"] {
+  --site-primary: #f2a347;
+  --site-primary-2: #f5c07a;
+  --site-primary-deep: #e8841e;
+  --site-primary-rgb: 242, 163, 71;
+  --site-primary-2-rgb: 245, 192, 122;
+}
+html[data-theme="dark"][data-color="teal"] {
+  --site-primary: #2ec4c4;
+  --site-primary-2: #5ed3d3;
+  --site-primary-deep: #14a3a3;
+  --site-primary-rgb: 46, 196, 196;
+  --site-primary-2-rgb: 94, 211, 211;
+}

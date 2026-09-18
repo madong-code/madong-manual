@@ -9,8 +9,13 @@
  * 引入位置：手册 index.html 中，docs-boot.js 之后、docsify.min.js 之前。
  */
 (function () {
-  var STORE_KEY = 'madong.docs.theme';
-  var MODES = ['dark', 'light'];
+  // 主题状态全部来自共享引擎 MadongTheme（theme-core.js），文档侧不另存一份
+  var Theme = window.MadongTheme || {
+    getPref: function () { return { mode: 'dark', color: 'blue' }; },
+    toggleMode: function () {}, setColor: function () {},
+    ensureDefault: function () {}, subscribe: function () {}
+  };
+  // 仅用于渲染色点 UI（key + 展示色）
   var COLORS = [
     { key: 'blue',   dot: '#2f6bff' },
     { key: 'green',  dot: '#1e9e63' },
@@ -24,32 +29,6 @@
     moon:    '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
     sun:     '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2"  x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93"  y1="4.93"  x2="6.34"  y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2"  y1="12" x2="4"  y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93"  y1="19.07" x2="6.34"  y2="17.66"/><line x1="17.66" y1="6.34"  x2="19.07" y2="4.93"/></svg>'
   };
-
-  function read() {
-    try {
-      var t = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
-      return {
-        mode: MODES.indexOf(t.mode) !== -1 ? t.mode : 'dark',
-        color: COLORS.some(function (c) { return c.key === t.color; }) ? t.color : 'blue'
-      };
-    } catch (e) {
-      return { mode: 'dark', color: 'blue' };
-    }
-  }
-
-  function save(pref) {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(pref)); } catch (e) {}
-  }
-
-  function apply(pref) {
-    var r = document.documentElement;
-    r.setAttribute('data-theme', pref.mode);
-    r.setAttribute('data-color', pref.color);
-  }
-
-  // 脚本执行即生效，先于 Docsify 渲染，避免首屏闪烁
-  var pref = read();
-  apply(pref);
 
   // ---- 面板（body portal） ----
   var panelEl = null;
@@ -76,9 +55,7 @@
       dot.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        pref.color = c.key;
-        save(pref);
-        apply(pref);
+        Theme.setColor(c.key);
         syncUI();
       });
       colors.appendChild(dot);
@@ -98,9 +75,7 @@
     modeBtn.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      pref.mode = pref.mode === 'dark' ? 'light' : 'dark';
-      save(pref);
-      apply(pref);
+      Theme.toggleMode();
       syncUI();
     });
     sec2.appendChild(lbl2);
@@ -170,6 +145,7 @@
 
   function syncUI() {
     if (!panelEl) return;
+    var pref = Theme.getPref();
     var modeBtn = panelEl.querySelector('.theme-switch__mode');
     if (modeBtn) {
       modeBtn.innerHTML = pref.mode === 'dark' ? SVG.moon : SVG.sun;
@@ -254,15 +230,9 @@
     }, 150);
   }
 
-  // 跨标签页同步
-  window.addEventListener('storage', function (e) {
-    if (e.key !== STORE_KEY || !e.newValue) return;
-    try {
-      var t = JSON.parse(e.newValue);
-      if (MODES.indexOf(t.mode) !== -1) pref.mode = t.mode;
-      if (COLORS.some(function (c) { return c.key === t.color; })) pref.color = t.color;
-      apply(pref);
-      syncUI();
-    } catch (err) {}
-  });
+  // 跨标签页 / 门户改动主题时，同步本页 UI
+  Theme.subscribe(function () { syncUI(); });
+
+  // 文档默认：深色 + 蓝；仅当没有已保存偏好时才生效（共享引擎负责持久化）
+  Theme.ensureDefault({ mode: 'dark', color: 'blue' });
 })();

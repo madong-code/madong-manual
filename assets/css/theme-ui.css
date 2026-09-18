@@ -1,0 +1,74 @@
+/* assets/css/theme-ui.css
+ * 主题面板共享组件（门户 portal 与 文档 docs 共用，属于「主题」共享范畴）
+ * - 结构：.theme-switch__panel > .theme-switch__section(主题色/外观)
+ * - 变量：--sw-* 定义在 theme-color.css，随 data-theme 自适应深浅
+ * - 引入：门户与文档都需在各自样式后引入本文件
+ */
+
+.theme-switch__section + .theme-switch__section {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--sw-divider, #eef1f6);
+}
+
+.theme-switch__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sw-muted, #98a1b0);
+  margin-bottom: 10px;
+  letter-spacing: .3px;
+}
+
+.theme-switch__colors {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.theme-switch__dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  padding: 0;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: var(--dot);
+  transition: transform .15s, box-shadow .15s;
+}
+.theme-switch__dot:hover { transform: scale(1.1); }
+.theme-switch__dot.active {
+  box-shadow: 0 0 0 2px var(--sw-panel-bg, #fff), 0 0 0 4px var(--dot);
+  transform: scale(1.05);
+}
+
+.theme-switch__mode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--sw-border-strong, #e3e7ee);
+  background: var(--sw-mode-bg, #f8f9fb);
+  color: var(--sw-icon, #5b6472);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.theme-switch__mode svg { display: block; }
+.theme-switch__mode:hover {
+  color: var(--sw-accent, #2f6bff);
+  border-color: var(--sw-accent, #2f6bff);
+}
+
+/* 面板外观（容器定位由各端自定义：文档 body 级 fixed / 门户导航内 absolute） */
+.theme-switch__panel {
+  min-width: 180px;
+  box-sizing: border-box;
+  background: var(--sw-panel-bg, #ffffff);
+  border: 1px solid var(--sw-border, #e6e9f0);
+  border-radius: 10px;
+  box-shadow: var(--sw-shadow, 0 12px 30px rgba(20, 26, 38, .18));
+  padding: 14px 14px 12px;
+}

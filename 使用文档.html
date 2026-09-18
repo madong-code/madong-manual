@@ -39,7 +39,8 @@
   </script>
 
   <link rel="stylesheet" href="assets/libs/vue.css" />
-  <link rel="stylesheet" href="assets/css/docs.css" />
+  <!-- 开发期禁用缓存：本地样式每次带时间戳加载，避免旧缓存 -->
+  <script>document.write('<link rel="stylesheet" href="assets/css/docs.css?_t=' + Date.now() + '">');</script>
 </head>
 <body>
   <div id="app">加载文档中…</div>
@@ -54,7 +55,7 @@
   </script>
   <script>document.write('<script src="assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
   <script>document.write('<script src="assets/js/analytics.js?_t=' + Date.now() + '"><\/script>');</script>
-  <script src="assets/js/docs-boot.js?v=20260909-14"></script>
+  <script>document.write('<script src="assets/js/docs-boot.js?_t=' + Date.now() + '"><\/script>');</script>
   <script>
     // 使用文档为单页，无需侧边栏 / 顶部导航菜单
     window.$docsify.loadSidebar = false;

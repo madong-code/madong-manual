@@ -5,13 +5,18 @@
   <title><手册名> · Madong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../../assets/libs/vue.css" />
-  <link rel="stylesheet" href="../../assets/css/docs.css?v=20260909-14" />
-  <link rel="stylesheet" href="../../assets/css/gate.css" />
+  <!-- 开发期禁用缓存：本地样式每次带时间戳加载，避免旧缓存 -->
+  <script>
+    (function () {
+      ['../../assets/css/theme-color.css', '../../assets/css/theme-ui.css', '../../assets/css/docs.css', '../../assets/css/gate.css']
+        .forEach(function (h) { document.write('<link rel="stylesheet" href="' + h + '?_t=' + Date.now() + '">'); });
+    })();
+  </script>
 </head>
 <body>
   <div id="app">加载文档中…</div>
 
-  <script src="../../assets/js/gate.js"></script>
+  <script>document.write('<script src="../../assets/js/gate.js?_t=' + Date.now() + '"><\/script>');</script>
   <script>
     // 复制模板后，只需改这里：id 与目录名一致；access: public 免密钥 / protected 需站点密钥
     window.__MANUAL__ = {
@@ -25,7 +30,7 @@
   </script>
   <script>document.write('<script src="../../assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
   <script>document.write('<script src="../../assets/js/analytics.js?_t=' + Date.now() + '"><\/script>');</script>
-  <script src="../../assets/js/docs-boot.js?v=20260909-14"></script>
+  <script>document.write('<script src="../../assets/js/docs-boot.js?_t=' + Date.now() + '"><\/script>');</script>
 
   <script src="../../assets/libs/docsify.min.js"></script>
   <script src="../../assets/libs/search.min.js"></script>
