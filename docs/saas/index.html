@@ -61,6 +61,13 @@
       homepage: 'home.md',
       // logo: '/assets/img/logo.png',  // 站点品牌 logo：本地 /assets/... 或 https://...
       // 门禁：默认需密钥；首页与「介绍」整节免密公开；其余走密钥（提示在内测群获取或自行搭建）
+      // ⚠️ 临时取消 saas 手册的密钥访问（整册公开）。恢复密钥门禁时：
+      //   1) 删除下面这行 access: 'public'
+      //   2) 取消注释下方「原密钥门禁」配置块
+      //   3) 把 DocsifyGate.bind('public') 改回 DocsifyGate.bind('protected')
+      access: 'public'
+      /*
+      // ---- 原密钥门禁（恢复时启用）----
       access: {
         default: 'protected',
         keyId: 'saas',
@@ -76,8 +83,10 @@
           }
         }
       }
+      */
     };
-    DocsifyGate.bind('protected');
+    // DocsifyGate.bind('protected');   // 原密钥门禁（恢复时启用）
+    DocsifyGate.bind('public');
   </script>
   <script>document.write('<script src="../../assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
   <script>document.write('<script src="../../assets/js/analytics.js?_t=' + Date.now() + '"><\/script>');</script>
