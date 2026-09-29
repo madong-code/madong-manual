@@ -98,6 +98,12 @@
     - [4.3.4 消息推送](guide/backend/advanced/push.md)
     - [4.3.5 内容审核](guide/backend/advanced/review.md)
     - [4.3.6 命令行](guide/backend/advanced/command.md)
+    - [4.3.7 MCP 工具](guide/backend/advanced/mcp/index.md)
+      - [配置说明](guide/backend/advanced/mcp/configuration.md)
+      - [编辑器接入](guide/backend/advanced/mcp/ide.md)
+      - [自定义工具](guide/backend/advanced/mcp/custom-tools.md)
+      - [生产环境](guide/backend/advanced/mcp/production.md)
+      - [常见问题](guide/backend/advanced/mcp/faq.md)
 
 - [5. 二开指南](guide/dev-guide/index.md)
 
