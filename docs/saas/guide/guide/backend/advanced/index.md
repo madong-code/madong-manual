@@ -8,3 +8,4 @@
 - [消息推送](push.md)
 - [内容审核](review.md)
 - [命令行](command.md)
+- [MCP 工具](mcp/index.md)
