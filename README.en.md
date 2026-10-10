@@ -1,6 +1,20 @@
+<div align="center">
+
+<img src="assets/img/logo.png" alt="Madong Logo" width="120" />
+
 # Madong Documentation Center
 
-The **multi-manual documentation site** for the Madong rapid admin framework (Webman + Vue 3). Each application / plugin is a self-contained manual (its own directory), entered from the portal homepage.
+The **multi-manual documentation site** for the Madong admin framework (Webman + Vue 3)
+
+[![Docsify](https://img.shields.io/badge/Docsify-2ECE6E?logo=readthedocs&logoColor=white)](https://docsify.js.org)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-auto%20deploy-222222?logo=github&logoColor=white)](https://pages.github.com)
+[![Backend](https://img.shields.io/badge/Madong-v5.1.0-2488C9)](https://github.com/madong-code/madong-admin)
+
+[中文](./README.md) | **English**
+
+</div>
+
+The multi-manual documentation site for the Madong rapid admin framework (Webman + Vue 3). Each application / plugin is a self-contained manual (its own directory), entered from the portal homepage.
 
 - Online docs (GitHub Pages): `https://<your-org>.github.io/<repo>/`
 - Site shape aligns with [workerman.net/doc](https://www.workerman.net/doc): the homepage is a card index of manuals, each manual is independent.
