@@ -1,4 +1,4 @@
-﻿# 插件 · 机制
+# 插件 · 机制
 
 ---
 
@@ -25,7 +25,8 @@ Webman 启动时会自动扫描 `plugin/*/app/` 目录，注册该插件下的�
 
 ## 3. 配置与 Install.php
 
-- `config/`：插件自身配置（如菜单定义、权限码、路由前缀）。
+- `config/info.php`：**插件元信息唯一声明处**——标识（`name` 必须与目录对应）、独立版本号、描述、依赖（`support_app` / `require.composer` / `npm_require`）、卸载策略（`uninstall.undeletable` / `drop_tables` / `remove_dependencies` / `remove_upload`）、资源路径与额外前端端点。字段详情见[应用插件 → info.php 字段说明](../backend/advanced/plugin.md#configinfophp-字段说明)。
+- `config/` 其它文件：插件自身配置（如菜单定义、权限码、路由前缀、审核类型扩展）。
 - `Install.php`：插件安装/卸载入口，负责执行建表、写初始数据、注册菜单/权限等。
 
 ---

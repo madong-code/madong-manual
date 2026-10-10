@@ -35,9 +35,14 @@
 
 ## 4. 卸载（Uninstalling → Uninstalled）
 
-- 移除前端模板与路由。
-- 可选清理数据库（菜单/权限/表，需确认避免误删业务数据）。
-- 触发 `plugin.uninstalled` 事件。
+卸载行为由插件 `config/info.php` 的 `uninstall` 配置驱动（字段说明见[应用插件 → info.php 字段](../backend/advanced/plugin.md#configinfophp-字段说明)）：
+
+- `undeletable=true`：系统内置插件，卸载接口直接拦截、包不允许删除（portal、pay）。
+- `drop_tables`：是否回滚迁移/删除数据表；业务数据型插件置 `false` 保留数据。
+- `remove_dependencies`：是否移除合并进主程序的 composer/npm 依赖。
+- `remove_upload`：是否按 `sys_upload.source = plugin:<name>` 回收上传附件。
+
+通用流程：移除前端模板与路由 → 按 `uninstall` 配置清理 → 触发 `plugin.uninstalled` 事件。
 
 ---
 
