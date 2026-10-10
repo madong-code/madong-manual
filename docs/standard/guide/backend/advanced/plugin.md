@@ -54,9 +54,11 @@ backend/plugin/{plugin_name}/
 
 ### 依赖声明
 
+> 依赖校验与 `support_app` 多依赖为 **v5.1.3 起支持**。
+
 | 字段 | 说明 |
 | --- | --- |
-| `support_app` | 依赖的其它插件，如 cms 声明 `['pay']`（付费能力经 pay 收单） |
+| `support_app` | **前置插件依赖，支持两种声明模式**：string 单依赖 `'pay'` / array 多依赖 `['pay', 'portal']`（如 cms 声明 `['pay']`，付费能力经 pay 收单）。安装时逐项校验前置插件的 `config/installed.php`，**任一未安装即阻断安装**，错误消息聚合列出全部缺失依赖（含其标题）。自引用与空值跳过；声明为逗号分隔字符串（`'pay,portal'`）亦可识别。落库 `sys_plugin.support_app varchar(255)`，多个以逗号分隔存储 |
 | `require.composer` | 后端 composer 依赖，安装时自动合并进根 `composer.json` 并提示 `composer install`，如 pay 的 `yansongda/pay => 3.7` |
 | `npm_require` | 前端 npm 依赖，键支持 `admin` / `web`，安装时合并进对应端 `package.json`，如 workflow 的 `@logicflow/core` |
 
@@ -71,10 +73,12 @@ backend/plugin/{plugin_name}/
 
 ### 资源与扩展端点
 
+> `template` 额外前端端点声明及配套 transfer 同步为 **v5.1.3 起支持**。
+
 | 字段 | 说明 |
 | --- | --- |
 | `resource` | 资源路径声明：`menu` 菜单初始数据（约定 `data/menu`）、`migration`、`seed`、`template` 模板源 |
-| `template` | 额外前端端点（独立于 admin/web 的自有前端，如 uniapp 小程序端），端点名 => 项目内路径前缀，如 cms 的 `'cms' => 'template/cms'`；与框架 appConfig、`Install.php resolveExtraTarget()` 同一约定 |
+| `template` | **额外前端端点**（独立于 admin/web 的自有前端，如 h5/uniapp 小程序端）：端点名 => 项目内路径前缀，命令按 `{前缀}/{插件名}` 识别插件子树，如 cms 的 `'cms' => 'template/cms/src/plugin'`（缺省 `template/{endpoint}/src/plugin`）。与框架 appConfig（`core/business/config/plugin.php`）、`Install.php resolveExtraTarget()` 同一约定，同时驱动「安装分发」与「开发期 transfer 回写」两个方向 |
 | `deploy_scope` | 分发范围：`both` 标准版与 SAAS 共用 / `standard` 仅标准版 / `saas` 仅 SAAS（如 logviewer） |
 
 ## 审核类型扩展（插件示例）
@@ -91,3 +95,20 @@ backend/plugin/{plugin_name}/
 6. 重启后端使插件生效（`php start.php restart`）。
 
 > 注意：插件后端代码必须放在 `backend/plugin/` 下，否则请求会 404；同时确保与模板源保持同步以便重新安装。
+
+## 开发期前端同步（madong-plugin:transfer）
+
+> 额外端点（`template` 声明）的 `resource` / `full` 同步与 `extract` 完整性告警为 **v5.1.3 起支持**。
+
+开发期前端代码在 `template/{端}/src/plugin/{name}/` 中维护，插件仓库（安装分发源）通过 `madong-plugin:transfer {name} <scenario>` 保持同步：
+
+| 场景 | 方向 | 说明 |
+| --- | --- | --- |
+| `resource` | 项目端 → 插件仓库 | `template/{ep}/src/plugin/{name}` → `backend/plugin/{name}/resource/template/{ep}`（clean 镜像），开发期改完前端后回写 |
+| `extract` | 项目 → download 包 | 后端整目录 + 三端模板导出到 `download/{name}/`，可直接提交私有仓库；额外端点资源随插件整包带出，**缺失时告警**提示先执行 `resource` |
+| `full` | download 包 → 项目 | 部署后端 + admin/web + **info.php `template` 声明的额外端点**（对称部署到 `{前缀}/{插件名}`） |
+| `backend` | download 包 → 后端 | 仅部署 `backend/plugin/{name}/`，前端模板由安装时 `Install.php` 分发 |
+
+- 未声明 `template` 的插件默认只处理 admin/web，行为不变；声明后 `resource` / `full` 自动覆盖额外端点
+- 同步范围仅限插件子树 `{前缀}/{插件名}`；子树外文件（uniapp 的 `pages.json` 注册、`locale` 等）不参与同步，需按插件安装逻辑自行处理
+- `extract` 导出前建议先跑 `resource` 回写，避免交付包缺少最新前端资源

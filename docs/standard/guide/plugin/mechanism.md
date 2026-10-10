@@ -18,8 +18,9 @@ Webman 启动时会自动扫描 `plugin/*/app/` 目录，注册该插件下的�
 插件前端以「模板源」形式存在于 `resource/template/`：
 - `template/admin/` → 合并进后台前端 `template/admin/`（views/lang/routes）
 - `template/web/` → 合并进门户前端 `template/web/`
+- 额外端点（h5/uniapp 等，v5.1.3 起由 `info.php` 的 `template` 键声明）→ 合并进 `{前缀}/{插件名}`（如 `template/cms/src/plugin/cms`）
 
-安装时由安装流程把模板复制到对应运行时前端目录；开发期也可从 `resource/template/admin/` 直接同步。
+安装时由安装流程把模板复制到对应运行时前端目录；开发期用 `php webman madong-plugin:transfer {name} resource` 把运行时前端回写模板源（详见[应用插件 → 开发期前端同步](../backend/advanced/plugin.md#开发期前端同步madong-plugintransfer)）。
 
 ---
 
