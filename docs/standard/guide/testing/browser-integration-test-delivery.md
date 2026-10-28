@@ -36,8 +36,8 @@
 
 | 对象 | 范围 |
 |---|---|
-| 前台 `source/web`（Nuxt 4，端口 3000） | 首页、搜索、会员中心全模块、主题/布局、移动端适配、路由菜单三种模式 |
-| 后台 `source/admin`（Vben 5.7.1 + Element Plus，端口 5500） | 登录/鉴权、系统管理、会员、站点、内容、运维、插件市场、仪表盘 |
+| 前台 `template/web`（Nuxt 4，端口 3000） | 首页、搜索、会员中心全模块、主题/布局、移动端适配、路由菜单三种模式 |
+| 后台 `template/admin`（Vben 5.7.1 + Element Plus，端口 5500） | 登录/鉴权、系统管理、会员、站点、内容、运维、插件市场、仪表盘 |
 | 安装向导（`8500/install`，预构建 SPA） | 环境检查至安装完成全流程（含 SSE 进度） |
 | 后端接口联调（`8500`） | 契约、鉴权头、错误码、分页、上传、SSE |
 | 兼容性 | 第 4 章浏览器清单、第 6 章响应式断点 |
@@ -59,21 +59,21 @@
 
 ### 3.1 代码基线（强制）
 
-| 项 | 唯一基线 | 说明 |
+| 项 | 稳定路径基线 | 说明 |
 |---|---|---|
-| 后端 | `madong/source/backend` | **禁止**使用 `madong/backend` 旧副本启动（曾导致 `/api/site/site-config` 等新接口 404） |
-| 前台 | `madong/source/web` | — |
-| 后台 | `madong/source/admin` | — |
+| 后端 | `backend/` | 稳定路径仓库即工作目录，直接拉取与提交（v5.1.4 起恢复源代码开放方式） |
+| 前台 | `template/web/` | 同后端：稳定路径仓库即工作目录 |
+| 后台 | `template/admin/` | 同后端：稳定路径仓库即工作目录 |
 | 版本标识 | 三端同一 commit，测试报告须记录 commit hash 与分支 | 可追溯要求 |
 
 ### 3.2 服务与端口
 
 | 服务 | 端口 | 启动方式 |
 |---|---|---|
-| 后端 webman | 8500 | `cd source\backend && php windows.php` |
-| 前台 Nuxt | 3000 | `cd source\web && pnpm dev` |
-| 后台 Vite | 5500 | `cd source\admin && pnpm dev` |
-| 安装向导 | 8500 `/install` | 需删除 `source/backend/install.lock` 并使用空库 |
+| 后端 webman | 8500 | `cd backend && php windows.php` |
+| 前台 Nuxt | 3000 | `cd template/web && pnpm dev` |
+| 后台 Vite | 5500 | `cd template/admin && pnpm dev`|
+| 安装向导 | 8500 `/install` | 需删除 `backend/install.lock` 并使用空库 |
 | WebSocket Push | 3501 | 随后端进程启动 |
 | 调度器 | 2001 | 随后端进程启动 |
 
@@ -100,7 +100,7 @@
 1. 三端启动成功，8500/3000/5500 均监听；
 2. 后端 404 冒烟：`/api/site/site-config` 返回业务 code 200（非 `{"code":404}`）；
 3. 管理员可登录后台，会员可登录前台；
-4. 日志目录 `source/backend/runtime/logs` 无致命错误；
+4. 日志目录 `backend/runtime/logs` 无致命错误；
 5. 记录 commit、端口、数据库版本、浏览器版本。
 
 ---
@@ -139,7 +139,7 @@
 
 ## 5. 待测功能模块与关键业务流程
 
-### 5.1 前台 `source/web`
+### 5.1 前台 `template/web`
 
 路由清单（`src/pages/routes.ts`）：
 
@@ -166,7 +166,7 @@
 4. 移动端：打开抽屉菜单 → 逐级进入会员子页 → 返回；
 5. 首页站点配置来自后端 `/api/site/site-config`，页脚版权/备案/统计正确。
 
-### 5.2 后台 `source/admin`
+### 5.2 后台 `template/admin`
 
 | 编号 | 模块 | 关键校验点 |
 |---|---|---|
@@ -259,7 +259,7 @@
 
 测量条件：本地/内网测试环境，Chrome Lighthouse（Mobile 预设）+ DevTools Performance，每项测 3 次取中位数，记录原始报告。
 
-### 7.1 前台（`source/web`）
+### 7.1 前台（`template/web`）
 
 | 指标 | 阈值 | 工具 |
 |---|---|---|
@@ -269,7 +269,7 @@
 | TTFB | ≤ 800ms（内网 ≤ 500ms） | DevTools Network |
 | 首屏可交互 | ≤ 3s | 手工 + Performance |
 
-### 7.2 后台（`source/admin`）
+### 7.2 后台（`template/admin`）
 
 | 指标 | 阈值 |
 |---|---|
@@ -404,11 +404,11 @@ RACI：测试负责人 A（测试执行域）、开发 R、业务方 C（判定�
 
 | 内容 | 路径 |
 |---|---|
-| 后台模块与路由 | `source/admin/src/views/`、`source/admin/src/router/routes/` |
-| 前台路由表 | `source/web/src/pages/routes.ts` |
-| 后台菜单/权限数据 | `source/backend/resource/data/menu/admin.php` |
-| 接口权限清单 | `source/backend/permissions.json` |
-| 安装流程接口 | `source/backend/app/install/controller/Index.php` |
+| 后台模块与路由 | `template/admin/src/views/`、`template/admin/src/router/routes/` |
+| 前台路由表 | `template/web/src/pages/routes.ts` |
+| 后台菜单/权限数据 | `backend/resource/data/menu/admin.php` |
+| 接口权限清单 | `backend/permissions.json` |
+| 安装流程接口 | `backend/app/install/controller/Index.php` |
 | 接口文档（Swagger） | `http://127.0.0.1:8500/adminapi/openapi` |
-| 进程与端口配置 | `source/backend/config/process.php` |
-| 现有自动化资产 | `source/admin/**/*.test.ts`（36 个，`pnpm test:unit`） |
+| 进程与端口配置 | `backend/config/process.php` |
+| 现有自动化资产 | `template/admin/**/*.test.ts`（36 个，`pnpm test:unit`） |
