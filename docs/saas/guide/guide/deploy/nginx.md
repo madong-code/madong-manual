@@ -35,7 +35,8 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_read_timeout 120s;   # SSE/导出可能耗时
+        proxy_buffering off;       # SSE 流式必需，关闭 nginx 响应缓冲
+        proxy_read_timeout 300s;   # AI 对话/导出可能耗时，与后端上游超时对齐
     }
 
     # 前台接口
@@ -46,6 +47,8 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;       # SSE 流式必需，关闭 nginx 响应缓冲
+        proxy_read_timeout 300s;   # 不设置时默认 60s，会掐断长回复
     }
 
     # 安装向导
@@ -59,7 +62,8 @@ server {
 要点：
 
 - API 反代务必带 `X-Forwarded-*` 头，否则后端取到的客户端 IP / 协议不正确。
-- `proxy_read_timeout` 调大，避免 SSE 进度流、数据导出被提前断开。
+- `proxy_buffering off` 必须开启：AI 对话走 SSE 流式输出，nginx 默认缓冲会把整段回复攒齐才下发，前端表现为长时间白屏等待。后端虽已发送 `X-Accel-Buffering: no`，但显式关闭最稳妥。
+- `proxy_read_timeout 300s` 调大，避免 SSE 进度流、AI 长回复、数据导出被提前断开（nginx 默认 60s）。
 - 若 admin/web 直接放在 `backend/public/`，可去掉对应 `location` 静态块，由 Webman 托管。
 - 生产建议开启 HTTPS（Let's Encrypt），并在 443 server 内做同样的反代。
 
