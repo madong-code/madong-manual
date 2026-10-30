@@ -1,6 +1,20 @@
+<div align="center">
+
+<img src="assets/img/logo.png" alt="Madong Logo" width="120" />
+
 # Madong 文档中心
 
-Madong 极速后台开发框架（Webman + Vue 3）的**多手册文档站**。每个应用 / 插件是一册自包含文档（独立目录），从门户首页进入。
+Madong 极速后台开发框架（Webman + Vue 3）的**多手册文档站**
+
+[![Docsify](https://img.shields.io/badge/Docsify-2ECE6E?logo=readthedocs&logoColor=white)](https://docsify.js.org)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-自动发布-222222?logo=github&logoColor=white)](https://pages.github.com)
+[![Backend](https://img.shields.io/badge/Madong-v5.1.0-2488C9)](https://github.com/madong-code/madong-admin)
+
+**中文** | [English](./README.en.md)
+
+</div>
+
+Madong 极速后台开发框架（Webman + Vue 3）的多手册文档站。每个应用 / 插件是一册自包含文档（独立目录），从门户首页进入。
 
 - 在线文档（GitHub Pages）：`https://<your-org>.github.io/<repo>/`
 - 站点形态对齐 [workerman.net/doc](https://www.workerman.net/doc)：首页是手册卡片索引，每册独立。
