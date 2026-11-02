@@ -25,7 +25,7 @@
 | [布局与骨架](./layout.md) | BasicLayout / AuthLayout / 菜单 / Tab / 面包屑 |
 | [组件适配](./components.md) | Element Plus 组件如何接入 Vben 适配层（`component-map.ts` + `adapter/component`） |
 | [表格与查询](./table.md) | `useCrud` + VxeTable 的列、搜索、操作、分页、树形 |
-| [表单与弹窗](./form.md) | `FormDialog` 弹窗表单、字段组件、校验、详情 |
+| [表单与弹窗](./form.md) | `FormDialog` 弹窗表单、字段组件、校验、详情、宽度布局（col-span/controlClass） |
 | [主题定制](./theme.md) | Element Plus 主题变量、暗黑模式、CSS 变量 |
 | [常见问题](./faq.md) | Element Plus 下的高频坑与排查 |
 

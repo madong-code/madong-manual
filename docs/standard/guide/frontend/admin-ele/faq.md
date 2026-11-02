@@ -64,3 +64,16 @@
 
 **原因**：覆盖了 `--el-color-primary` 但未在 `.dark` 下提供对应值，或引入顺序导致变量被覆盖。
 **解决**：在 `src/styles` 中统一管理，确保 `:root` 与 `.dark` 都声明完整阶梯变量（见 [theme.md](./theme.md)）。
+
+---
+
+## Q9：弹窗表单控件宽度不生效 / 字段变成一行两个
+
+**症状**：控件设置宽度没反应，或字段排布忽宽忽窄。
+
+**原因与解决**（宽度由三层开关控制，逐层排查）：
+
+1. `controlClass: 'w-1/2'` 挂上了类但没效果 → 被 Element Plus `.el-input { width: 100% }` 同权重覆盖，改用 Tailwind 4 important 后缀 `'w-1/2!'`。
+2. 字段一行两个 → `wrapperClass: 'grid-cols-2'` 下字段是 `col-span-1`；独占一行需 `col-span-2`。从 `system/menu` 等页面复制 schema 时注意列配置不同。
+3. 想让个别控件占满整行 → 字段级 `controlClass: 'w-full!'` 覆盖 `commonConfig` 全局限宽。
+4. 历史配置 `formWidth` 已移除（对齐 mono：表单层恒占满弹窗），见 [form.md §7](./form.md)。
