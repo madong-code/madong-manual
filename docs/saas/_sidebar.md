@@ -139,7 +139,6 @@
 - [9. 更新日志](guide/changelog/index.md)
   - [v5.1.5](guide/changelog/v5.1.5.md)
   - [v5.1.4](guide/changelog/v5.1.4.md)
-  - [v5.2.0](guide/changelog/v5.2.0.md)
   - [v5.1.3](guide/changelog/v5.1.3.md)
   - [v5.1.2](guide/changelog/v5.1.2.md)
   - [v5.1.1](guide/changelog/v5.1.1.md)
