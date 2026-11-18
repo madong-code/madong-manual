@@ -176,6 +176,64 @@ foreach ($generator as $chunk) {
 
 安装完成后生成 `install.lock`。
 
+### 4.1 前端模板组织模式
+
+系统安装与插件安装共用 `backend/config/install.php` 作为唯一事实来源，通过 `core/business/install/InstallConfigResolver` 解析，避免两处各自维护模板路径。
+
+| 模式 | admin | platform | web | 说明 |
+| --- | --- | --- | --- | --- |
+| `mono`（单仓双端） | `template/mono/apps/admin` | `template/mono/apps/platform` | `template/web` | admin/platform 共享 monorepo 依赖 |
+| `separated`（分离双端，默认） | `template/admin` | `template/platform` | `template/web` | 三端各自独立仓库 |
+
+`web` 是两种模式共用的通用模板，不随模式变化。
+
+配置结构（关键部分）：
+
+```php
+// backend/config/install.php
+return [
+    'default_mode' => 'separated',
+    'modes' => [
+        'mono'      => ['templates' => ['admin' => 'mono/apps/admin', 'platform' => 'mono/apps/platform']],
+        'separated' => ['templates' => ['admin' => 'admin', 'platform' => 'platform']],
+    ],
+    'common_templates' => ['web' => 'web'],
+    'template_meta' => [
+        'admin'    => ['label' => '管理端', 'plugin_dir' => 'src/plugin', 'build_dir' => 'dist', 'default' => true],
+        'platform' => ['label' => '平台端', 'plugin_dir' => 'src/plugin', 'build_dir' => 'dist', 'default' => true],
+        'web'      => ['label' => '会员端', 'plugin_dir' => 'src/plugin', 'build_dir' => '.output/public', 'default' => false],
+    ],
+    'plugin_distribution' => [
+        'default_templates' => ['admin', 'platform'],
+        'install_order' => ['backend', 'menus', 'frontend', 'mark'],
+    ],
+];
+```
+
+查找机制（模式决定路径、模板只声明元数据、三者解耦）：
+
+```
+templatePath(模板, 模式) = template/ + modes[模式].templates[模板]
+                        未命中时 = template/ + common_templates[模板]
+
+插件落盘目录 = templatePath(模板, 模式) + template_meta[模板].plugin_dir + /<插件标识>
+```
+
+新增一种组织方式，只需在 `modes` 增加一组路径映射并在 `template_meta` 声明元数据，无需改动加载代码。配置缺失时回退为 `separated` + admin/platform，旧部署不会报错。
+
+### 4.2 四阶段安装进度
+
+`GET /install` 与 CLI 共用 `InstallService::install()`，进度按四个阶段输出（百分比节点保持不变，SSE 事件契约不变）：
+
+| 阶段 | 进度文案前缀 | 主要工作 |
+| --- | --- | --- |
+| 环境准备 | `[1/4 环境准备]` | 安装状态校验、环境检测、数据库/管理员参数校验、数据库连接测试 |
+| 依赖安装 | `[2/4 依赖安装]` | 建表与基础数据（或仅初始化管理员）、可选的前端依赖安装与构建/文件迁移 |
+| 配置初始化 | `[3/4 配置初始化]` | 写入 `.env` |
+| 安装验证 | `[4/4 安装验证]` | 创建 `install.lock` 并派发完成事件 |
+
+前端构建为可选步骤，失败仅输出 `warning` 事件并继续安装，可稍后在后台「终端 → 重新发布」中单独构建。
+
 ---
 
 ## 五、通过前端安装端安装
@@ -213,10 +271,17 @@ vendor/bin/phinx migrate
 ### 6.3 使用安装命令
 
 ```bash
-php webman install:xxx      # 具体命令见 app/command/install/
+# 默认 separated（取 config/install.php 的 default_mode）
+php webman install:madong -y --build-project=1
+
+# 指定 mono 单仓模式
+php webman install:madong -y --build-project=1 --mode=mono
+
+# 显式指定前端模板清单（逗号分隔）
+php webman install:madong -y --build-project=1 --mode=separated --templates=admin,platform,web
 ```
 
-查看可用命令：
+`--mode` 可选 `mono` / `separated`，`--templates` 为逗号分隔的模板名；两者不传时均由 `config/install.php` 决定。查看可用命令：
 
 ```bash
 php webman list

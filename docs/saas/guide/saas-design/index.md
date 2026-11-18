@@ -74,3 +74,4 @@ Madong-Saas 将**平台级管理**（`platform` 应用）与**租户级后台**�
 - [租户隔离模式](./tenancy.md) - 单租户 / 字段隔离 / 库隔离
 - [标准版与多租户版](./standard-vs-saas.md) - 两种模式对比与切换
 - [订阅与套餐](./subscription.md) - 功能订阅与计费
+- [三形态共用仓库整合方案](./shared-repo-integration.md) - 标准版/SaaS/库隔离共用后端的整合实证与迁移策略
