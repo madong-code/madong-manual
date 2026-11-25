@@ -1,9 +1,9 @@
-﻿# 1.4 目录结构
+# 1.4 目录结构
 
 ## 1.4.1 仓库根目录
 
 ```
-MDAdmin/
+madong/
 ├── backend/            后端服务（Webman）
 ├── template/
 │   ├── admin/          后台管理端（Vue 3 + Vite）

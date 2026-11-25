@@ -29,7 +29,7 @@ cp .env.example .env          # 填写数据库 / Redis / JWT 等配置
 ```env
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_NAME=mdadmin
+DB_NAME=madong
 DB_USER=root
 DB_PASSWORD=******
 DB_PREFIX=mic_            # 表前缀

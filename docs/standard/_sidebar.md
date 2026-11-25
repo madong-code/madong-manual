@@ -8,10 +8,11 @@
 
 - [2. 安装指南](guide/install/index.md)
 
-  - [2.1 环境要求](guide/install/environment.md)
-  - [2.2 后端安装](guide/install/backend.md)
-  - [2.3 前端安装](guide/install/frontend.md)
-  - [2.4 安装向导](guide/install/wizard.md)
+  - [2.1 源码获取与下载](guide/install/source.md)
+  - [2.2 环境要求](guide/install/environment.md)
+  - [2.3 后端安装](guide/install/backend.md)
+  - [2.4 前端安装](guide/install/frontend.md)
+  - [2.5 安装向导](guide/install/wizard.md)
 
 - [3. 前端开发](guide/frontend/index.md)
 

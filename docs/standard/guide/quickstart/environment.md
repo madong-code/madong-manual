@@ -107,7 +107,7 @@ extension=bcmath
 
 4. Redis 扩展需单独下载 `php_redis.dll`（注意匹配 PHP 版本、TS/NTS、位数），放入 `ext/` 后在 `php.ini` 添加 `extension=redis`。
 
-> ⚠️ **Windows 限制**：不支持 `pcntl`/`posix`，无法使用多进程与守护模式。项目提供 `windows.bat` / `windows.php` 专用启动方式，**仅建议用于开发**，生产环境请用 Linux。
+> ⚠️ **Windows 限制**：不支持 `pcntl`/`posix`，无法使用多进程与守护模式。项目提供 `php windows.php` 专用启动方式，**仅建议用于开发**，生产环境请用 Linux。
 
 ### 2.7 Composer
 
@@ -326,6 +326,6 @@ A：Node 版本不符合 `^22.18.0 || ^24.0.0`，请升级 Node。
 A：项目 `preinstall` 强制 `only-allow pnpm`，必须使用 pnpm。
 
 **Q：Windows 下启动报 `pcntl` 相关错误**
-A：Windows 不支持该扩展，请使用 `windows.bat` 启动，或改用 WSL2 / Docker。
+A：Windows 不支持该扩展，请使用 `php windows.php` 启动，或改用 WSL2 / Docker。
 
 更多问题见 [FAQ](../faq/index.md)。

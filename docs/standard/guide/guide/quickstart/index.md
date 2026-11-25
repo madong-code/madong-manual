@@ -1,6 +1,6 @@
-﻿# 快速开始
+# 快速开始
 
-本章帮助你在 **30 分钟内**跑通 MDAdmin 的本地开发环境。
+本章帮助你在 **30 分钟内**跑通 Madong 极速后台开发框架的本地开发环境。
 
 ---
 
@@ -133,7 +133,7 @@ RECYCLE_BIN_ENABLED=true    # 回收站
 `template/admin/.env`（通用）：
 
 ```ini
-VITE_APP_TITLE=MDAdmin-Saas
+VITE_APP_TITLE=Madong 极速后台开发框架
 VITE_APP_NAMESPACE=madong-admin-ele        # 缓存/store 前缀，多套 UI 需区分
 VITE_APP_STORE_SECURE_KEY=please-replace-me-with-your-own-key
 VITE_APP_ICON_OFFLINE=false

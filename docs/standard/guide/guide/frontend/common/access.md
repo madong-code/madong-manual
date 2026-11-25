@@ -4,7 +4,7 @@
 
 ## 一、权限层级
 
-MDAdmin 前端权限分三层：
+Madong 极速后台开发框架的前端权限分三层：
 
 | 层级 | 控制粒度 | 实现 |
 | --- | --- | --- |
@@ -44,7 +44,7 @@ const { accessMode, toggleAccessMode } = useAccess();
 await toggleAccessMode();
 ```
 
-> MDAdmin 后台默认使用 **`backend` 模式**（菜单由后端下发）。
+> Madong 极速后台开发框架的后台默认使用 **`backend` 模式**（菜单由后端下发）。
 
 ---
 

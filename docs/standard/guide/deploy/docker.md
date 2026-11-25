@@ -30,8 +30,8 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ```bash
 cd template/admin
-docker build -t mdadmin-admin -f build/deploy/Dockerfile .
-docker run -d -p 8080:8080 mdadmin-admin
+docker build -t madong-admin -f build/deploy/Dockerfile .
+docker run -d -p 8080:8080 madong-admin
 ```
 
 ## 前台前端（web）镜像

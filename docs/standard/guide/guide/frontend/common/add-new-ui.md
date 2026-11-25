@@ -1,6 +1,6 @@
-﻿# 新增一套 UI 指南
+# 新增一套 UI 指南
 
-本页给出为 MDAdmin 后台接入**一套新 UI 组件库**的完整流程、清单与工作量评估。
+本页给出为 Madong 极速后台开发框架的后台接入**一套新 UI 组件库**的完整流程、清单与工作量评估。
 
 > 前置阅读：[UI 适配层设计](./ui-adapter.md)
 
@@ -60,7 +60,7 @@ rm -rf node_modules dist .vite pnpm-lock.yaml
 **`.env`**：
 
 ```ini
-VITE_APP_TITLE=MDAdmin-Saas
+VITE_APP_TITLE=Madong 极速后台开发框架
 VITE_APP_NAMESPACE=madong-admin-antd     # ⭐ 必须区分
 VITE_APP_STORE_SECURE_KEY=your-own-key
 VITE_APP_ICON_OFFLINE=false

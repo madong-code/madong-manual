@@ -1,6 +1,6 @@
 ﻿# 后端启动
 
-本页介绍如何启动 MDAdmin 后端服务（`backend/`）。
+本页介绍如何启动 Madong 后端服务（`backend/`）。完整安装说明以 [2.3 后端安装](../install/backend.md) 为准。
 
 > 前置条件：已完成 [环境准备](./environment.md)。
 
@@ -26,15 +26,9 @@ composer install
 
 ## 二、配置环境变量
 
-### 2.1 创建 `.env`
+### 2.1 配置 `.env`
 
-```bash
-# Linux/macOS
-cp .example.env .env
-
-# Windows
-copy .example.env .env
-```
+仓库中已提供 `backend/.env` 默认配置（仓库内**没有** `.example.env`），直接编辑其中的数据库与 Redis 配置即可。若文件遗失，可参考 [2.3 后端安装](../install/backend.md) 中的示例重建。
 
 ### 2.2 编辑 `.env`
 
@@ -110,8 +104,6 @@ Windows 不支持 `pcntl`/`posix`，需使用专用脚本：
 ```bash
 cd backend
 
-windows.bat                # 双击或命令行执行
-# 或
 php windows.php
 ```
 
@@ -141,7 +133,7 @@ tcp     root      madong-scheduler   text://127.0.0.1:2001      1            [OK
 
 | 进程 | 处理器 | 监听 | 进程数 | 作用 |
 | --- | --- | --- | --- | --- |
-| `webman` | `app\process\Http` | `http://0.0.0.0:8500` | `cpu_count() * 4` | HTTP 服务主进程 |
+| `webman` | `app\process\Http` | `http://0.0.0.0:8500` | `4` | HTTP 服务主进程 |
 | `monitor` | `app\process\Monitor` | — | 1 | 文件变更热重载 + 内存监控 |
 | `madong-scheduler` | `core\infrastructure\scheduler\SchedulerServer` | `text://127.0.0.1:2001` | 1 | 任务调度服务 |
 

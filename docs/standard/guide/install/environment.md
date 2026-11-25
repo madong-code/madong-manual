@@ -1,6 +1,6 @@
-# 2.1 环境要求
+# 2.2 环境要求
 
-## 2.1.1 版本要求总览
+## 2.2.1 版本要求总览
 
 | 组件 | 要求 | 校验命令 |
 | --- | --- | --- |
@@ -13,7 +13,7 @@
 
 > 版本约束来自 `backend/composer.json` 的 `require.php`，以及 `template/admin/package.json` 的 `engines` / `packageManager`。
 
-## 2.1.2 PHP 扩展
+## 2.2.2 PHP 扩展
 
 必需扩展：
 
@@ -48,19 +48,19 @@ Webman 依赖 `pcntl_*`、`proc_open` 等函数，请确认 `php.ini` 的 `disab
 disable_functions = pcntl_signal,pcntl_fork,proc_open,exec
 ```
 
-## 2.1.3 数据库准备
+## 2.2.3 数据库准备
 
-创建数据库（字符集建议 `utf8mb4`）：
+创建数据库（字符集建议 `utf8mb4`），库名可按实际项目调整，CLI 安装命令默认使用 `madong`：
 
 ```sql
-CREATE DATABASE `madong_saas`
+CREATE DATABASE `madong`
   DEFAULT CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_ci;
 ```
 
-默认表前缀为 `md_`（`backend/.env` 中的 `DB_PREFIX`）。
+表前缀由 `backend/.env` 的 `DB_PREFIX` 决定：CLI 安装命令 `install:madong` 默认 `ma_`，仓库自带的 `.env` 使用 `md_`，安装向导会在测试数据库连接时按填写值写回。**表前缀安装完成后不可更改**，请在安装前确定。
 
-## 2.1.4 Redis 准备
+## 2.2.4 Redis 准备
 
 后端在多处使用 Redis，`.env` 中分为三组配置：
 
@@ -72,7 +72,7 @@ CREATE DATABASE `madong_saas`
 
 三组可以指向同一个 Redis 实例，通过 `DB` 编号或 `PREFIX` 隔离。
 
-## 2.1.5 Node 与 pnpm
+## 2.2.5 Node 与 pnpm
 
 前端强制使用 pnpm（`preinstall` 中配置了 `only-allow pnpm`），使用 npm/yarn 会直接报错。
 
@@ -85,7 +85,7 @@ corepack prepare pnpm@10.33.4 --activate
 npm i -g pnpm@10
 ```
 
-## 2.1.6 推荐开发工具
+## 2.2.6 推荐开发工具
 
 | 类型 | 推荐 |
 | --- | --- |
@@ -94,7 +94,7 @@ npm i -g pnpm@10
 | IDE | PhpStorm、VS Code |
 | VS Code 插件 | PHP Intelephense、Vue - Official、Oxc、Tailwind CSS IntelliSense |
 
-## 2.1.7 环境自检清单
+## 2.2.7 环境自检清单
 
 在开始安装前逐条确认：
 
@@ -106,4 +106,4 @@ npm i -g pnpm@10
 - [ ] `node -v` 为 22.18+ 或 24.x
 - [ ] `pnpm -v` 为 10+
 
-> 下一节：[2.2 后端安装](backend.md)
+> 下一节：[2.3 后端安装](backend.md)

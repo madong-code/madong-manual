@@ -1,6 +1,6 @@
 ﻿# 第一个功能
 
-本页通过一个完整的「商品分类」CRUD 功能，带你走通 MDAdmin 的**全栈开发流程**。
+本页通过一个完整的「商品分类」CRUD 功能，带你走通 Madong 的**全栈开发流程**。
 
 > 示例严格遵循项目现有约定，参考自真实模块 `member/tag`。
 
@@ -27,7 +27,7 @@
 └── views/goods/category/index.vue                 页面
 ```
 
-> 💡 **偷懒方案**：以上骨架可用[代码生成器](../plugin/codegen.md)一键生成。本页手写是为了讲清每层职责。
+> 💡 **偷懒方案**：以上骨架可用[代码生成器](../dev-guide/codegen.md)一键生成。本页手写是为了讲清每层职责。
 
 ---
 
@@ -325,7 +325,7 @@ class GoodsCategoryController extends Crud
 
 ### 3.6 路由
 
-MDAdmin 后台采用约定式路由，控制器放入 `app/adminapi/controller/<域>/` 后自动映射：
+Madong 后台采用约定式路由，控制器放入 `app/adminapi/controller/<域>/` 后自动映射：
 
 | 方法 | 路径 | 对应 |
 | --- | --- | --- |
@@ -342,7 +342,7 @@ MDAdmin 后台采用约定式路由，控制器放入 `app/adminapi/controller/<
 
 ```bash
 cd backend
-php start.php restart      # Windows: 重新执行 windows.bat
+php start.php restart      # Windows: 重新执行 php windows.php
 ```
 
 ---
@@ -757,7 +757,7 @@ const [BasicCrud, crudApi] = useCrud({
 
 ## 八、下一步
 
-- 用[代码生成器](../plugin/codegen.md)自动生成以上所有骨架
+- 用[代码生成器](../dev-guide/codegen.md)自动生成以上所有骨架
 - 深入 [后端分层设计](../backend/architecture/layers.md)
 - 深入 [前端 CRUD 组件](../frontend/admin-ele/table.md)
 - 查看 [开发规范](../dev-guide/index.md)

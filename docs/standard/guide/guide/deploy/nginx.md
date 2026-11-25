@@ -9,14 +9,14 @@ server {
 
     # 后台静态站（也可由 Webman 直接服务 public/admin）
     location /admin/ {
-        alias /var/www/mdadmin/template/admin/dist/;
+        alias /var/www/madong/template/admin/dist/;
         try_files $uri $uri/ /admin/index.html;
         index index.html;
     }
 
     # 前台静态站
     location / {
-        alias /var/www/mdadmin/template/web/.output/public/;
+        alias /var/www/madong/template/web/.output/public/;
         try_files $uri $uri/ /index.html;
     }
 
@@ -46,7 +46,7 @@ server {
 
     # 安装向导
     location /install/ {
-        alias /var/www/mdadmin/template/install/dist/;
+        alias /var/www/madong/template/install/dist/;
         try_files $uri $uri/ /install/index.html;
     }
 }

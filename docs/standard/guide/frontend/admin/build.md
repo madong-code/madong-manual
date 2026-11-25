@@ -16,7 +16,7 @@ template/admin/
 ### `.env` — 公共
 
 ```ini
-VITE_APP_TITLE=Madong 极速开发框架
+VITE_APP_TITLE=Madong 极速后台开发框架
 VITE_APP_NAMESPACE=madong-single
 VITE_APP_STORE_SECURE_KEY=please-replace-me-with-your-own-key
 VITE_APP_ICON_OFFLINE=false

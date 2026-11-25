@@ -1,6 +1,6 @@
-﻿# 第一个功能
+# 第一个功能
 
-本页通过一个完整的「商品分类」CRUD 功能，带你走通 MDAdmin 的**全栈开发流程**。
+本页通过一个完整的「商品分类」CRUD 功能，带你走通 Madong 极速后台开发框架的**全栈开发流程**。
 
 > 示例严格遵循项目现有约定，参考自真实模块 `member/tag`。
 
@@ -325,7 +325,7 @@ class GoodsCategoryController extends Crud
 
 ### 3.6 路由
 
-MDAdmin 后台采用约定式路由，控制器放入 `app/adminapi/controller/<域>/` 后自动映射：
+Madong 极速后台开发框架的后台采用约定式路由，控制器放入 `app/adminapi/controller/<域>/` 后自动映射：
 
 | 方法 | 路径 | 对应 |
 | --- | --- | --- |

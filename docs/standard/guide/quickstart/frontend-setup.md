@@ -1,4 +1,4 @@
-﻿# 前端启动
+# 前端启动
 
 本页介绍如何启动前端应用。当前主线为后台管理端 `template/admin/`（Element Plus）。
 
@@ -37,10 +37,10 @@ pnpm dev
 启动成功后访问：
 
 ```
-http://localhost:5777
+http://localhost:5500
 ```
 
-端口由 `.env.development` 中 `VITE_PORT=5777` 决定。
+端口由 `.env.development` 中 `VITE_PORT=5500` 决定。
 
 ---
 
@@ -50,21 +50,20 @@ http://localhost:5777
 
 ```ini
 # 应用标题
-VITE_APP_TITLE=MDAdmin-Saas
+VITE_APP_TITLE=Madong 极速后台开发框架
 
 # 应用命名空间，用于缓存、store 等功能的前缀，确保隔离
-VITE_APP_NAMESPACE=madong-admin-ele
+VITE_APP_NAMESPACE=madong-single
 
 # 对 store 进行加密的密钥，持久化到 localStorage 时使用
 VITE_APP_STORE_SECURE_KEY=please-replace-me-with-your-own-key
 
 # 是否启用离线图标
-VITE_APP_ICON_OFFLINE=false
+VITE_APP_ICON_OFFLINE=true
 ```
 
 > 🔑 **多套 UI 必须区分 `VITE_APP_NAMESPACE`**
-> 部署多套 UI 到同一域名时，若命名空间相同，localStorage/缓存会互相覆盖。
-> 建议：`madong-admin-ele` / `madong-admin-antd` / `madong-admin-naive`。
+> 部署 single / aura 两套 UI 到同一域名时，若命名空间相同，localStorage/缓存会互相覆盖。
 
 > 🔒 `VITE_APP_STORE_SECURE_KEY` 生产环境**必须替换**为自有密钥。
 
@@ -72,7 +71,7 @@ VITE_APP_ICON_OFFLINE=false
 
 ```ini
 # 端口号
-VITE_PORT=5777
+VITE_PORT=5500
 
 VITE_BASE=/
 
@@ -84,8 +83,8 @@ VITE_GLOB_ENABLE_WSS=true
 VITE_GLOB_WSS_URL=ws://127.0.0.1:3501
 VITE_GLOB_WSS_APPKEY=60756ede2a9737a05384aad849e220f8
 
-# 是否开启 Nitro Mock 服务，true 为开启，false 为关闭
-VITE_NITRO_MOCK=true
+# 是否开启 Nitro Mock 服务，true 为开启，false 为关闭（开发环境默认关闭）
+VITE_NITRO_MOCK=false
 
 # 是否打开 devtools，true 为打开，false 为关闭
 VITE_DEVTOOLS=false
@@ -220,15 +219,9 @@ pnpm dev
 
 详见 [前端 → 门户端](../frontend/web/index.md)。
 
-### 8.2 安装端 `template/install/`
+### 8.2 安装向导
 
-```bash
-cd template/install
-pnpm install
-pnpm dev
-```
-
-详见 [前端 → 安装端](../frontend/install/index.md)。
+安装向导由后端静态页提供，**无需单独前端工程**。后端启动后访问 `http://127.0.0.1:8500/install`，详见 [2.5 安装向导](../install/wizard.md)。
 
 ---
 
@@ -240,7 +233,7 @@ A：Node 版本不符合 `^22.18.0 || ^24.0.0`，升级 Node 或用 fnm/nvm 切�
 **Q：执行 `npm install` 立即报错**
 A：项目强制 pnpm，改用 `pnpm install`。
 
-**Q：端口 5777 被占用**
+**Q：端口 5500 被占用**
 A：修改 `.env.development` 的 `VITE_PORT`，或结束占用进程。
 
 **Q：接口请求 404 / 无响应**
@@ -253,7 +246,7 @@ A：
 A：开发环境走 Vite 代理不应跨域。若跨域说明请求未走代理——检查代码是否写死了完整域名（应使用相对路径 `/adminapi/...`）。
 
 **Q：想用 Mock 数据而非真实后端**
-A：设置 `VITE_NITRO_MOCK=true`（默认已开启），Mock 服务位于 `tooling/mock/`。
+A：在 `.env.development` 中设置 `VITE_NITRO_MOCK=true`（默认关闭），Mock 服务位于 `tooling/mock/`。
 
 **Q：页面白屏，控制台报模块解析错误**
 A：删除缓存重装：

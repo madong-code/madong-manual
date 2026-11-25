@@ -1,6 +1,6 @@
 ﻿# 文档站使用文档
 
-本文档说明 **MDAdmin 文档站**本身的使用方式：如何在本地预览、如何部署到服务器（Nginx / 小皮等）、如何新增与编辑文档、以及静态资源的存放约定。
+本文档说明 **Madong 文档站**本身的使用方式：如何在本地预览、如何部署到服务器（Nginx / 小皮等）、如何新增与编辑文档、以及静态资源的存放约定。
 
 文档站基于 [Docsify](https://docsify.js.org/) 构建，**直接读取 `.md` 源文件渲染，无需打包、无需构建**。
 
@@ -18,7 +18,8 @@ docs/
 ├── guide/                # 文档区（所有 .md 源）
 │   ├── usage.md          # 本文档
 │   ├── intro/            # 项目介绍
-│   ├── quickstart/       # 快速开始
+│   ├── install/          # 安装指南（含 2.1 源码获取与下载）
+│   ├── quickstart/       # 快速开始（安装细节以 install/ 为准）
 │   ├── frontend/         # 前端文档
 │   ├── backend/          # 后端文档
 │   ├── plugin/           # 插件开发
@@ -45,7 +46,7 @@ Docsify 在浏览器中通过 `fetch` 读取 `.md`，因此**不能直接双击 
 
 ```bash
 # 方式 A：Python（一般系统自带）
-cd d:/MyProject/test/MDAdmin/docs
+cd path/to/madong/manual/docs/standard
 python -m http.server 4000
 # 浏览器打开 http://localhost:4000/
 
@@ -72,7 +73,7 @@ npx serve -l 4000 .
 server {
     listen 80;
     server_name docs.example.com;
-    root /path/to/MDAdmin/docs;   # 指向 docs 目录
+    root /path/to/madong/manual/docs/standard;   # 指向文档站目录
     index index.html;
 
     location / {
@@ -98,6 +99,8 @@ server {
 4. **首页**：站点加载 `README.md`，作为欢迎页与总导航。
 
 > 文档源即 `.md` 文件，不要把转换后的 HTML 再放进仓库。
+>
+> 安装相关改动请同步核对 `install/` 与 `quickstart/`，以 `install/` 为权威；命令与端口以源码为准，详见 [2.1 源码获取与下载](install/source.md) 与 [2.3 后端安装](install/backend.md)。
 
 ---
 

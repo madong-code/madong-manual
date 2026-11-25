@@ -1,6 +1,6 @@
-﻿# 后端开发
+# 后端开发
 
-MDAdmin 后端基于 **Webman 2.2**（常驻内存多进程 PHP 框架，要求 PHP >= 8.2），数据库使用 **Laravel Illuminate Database ^11.33**，业务代码遵循严格的 **四层架构**：
+Madong 极速后台开发框架的后端基于 **Webman 2.2**（常驻内存多进程 PHP 框架，要求 PHP >= 8.2），数据库使用 **Laravel Illuminate Database ^11.33**，业务代码遵循严格的 **四层架构**：
 
 ```
 Controller（控制器） → Service（服务层） → Dao（数据访问） → Model（模型）

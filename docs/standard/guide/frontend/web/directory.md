@@ -76,7 +76,7 @@ pages/
 └── routes.ts           菜单声明（非页面）
 ```
 
-`routes.ts` 是 MDAdmin 的扩展，用于**声明菜单结构**（标题、图标、排序、权限码），与文件路由配合工作。详见 [3.2.3 页面与路由](pages.md)。
+`routes.ts` 是 Madong 极速后台开发框架的扩展，用于**声明菜单结构**（标题、图标、排序、权限码），与文件路由配合工作。详见 [3.2.3 页面与路由](pages.md)。
 
 ### `src/layouts/` — 布局
 
@@ -192,7 +192,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 | 目录 | 含义 |
 | --- | --- |
 | `src/plugins/` | Nuxt 官方约定的全局插件目录 |
-| `src/plugin/` | MDAdmin 的**可插拔业务模块**目录 |
+| `src/plugin/` | Madong 极速后台开发框架的**可插拔业务模块**目录 |
 
 `nuxt.config.ts` 中自动收集：
 

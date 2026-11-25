@@ -1,4 +1,4 @@
-﻿# 配置体系
+# 配置体系
 
 Webman 配置全部位于 `backend/config/`，通过 `config('key.subkey')` 读取。配置在启动时常驻内存，修改后需重启。
 
@@ -34,7 +34,7 @@ $dsn  = config('database.connections.mysql.host');
 ```env
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=mdadmin
+DB_DATABASE=madong
 REDIS_HOST=127.0.0.1
 REDIS_PASSWORD=
 ```

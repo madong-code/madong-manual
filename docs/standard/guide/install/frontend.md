@@ -1,4 +1,4 @@
-# 2.3 前端安装
+# 2.4 前端安装
 
 前端共三个可独立运行的应用，按需启动：
 
@@ -10,7 +10,7 @@
 
 三者都强制使用 **pnpm**（`preinstall` 中执行 `npx only-allow pnpm`）。
 
-## 2.3.1 admin 后台端
+## 2.4.1 admin 后台端
 
 ### 安装依赖
 
@@ -27,7 +27,7 @@ pnpm install
 pnpm dev
 ```
 
-默认地址：**http://localhost:5777**（端口由 `.env.development` 的 `VITE_PORT` 决定）。
+默认地址：**http://localhost:5500**（端口由 `.env.development` 的 `VITE_PORT` 决定）。
 
 ### 可用脚本
 
@@ -71,17 +71,18 @@ server: {
 `.env`（公共）：
 
 ```ini
-VITE_APP_TITLE=Madong 极速开发框架
+VITE_APP_TITLE=Madong 极速后台开发框架
 VITE_APP_NAMESPACE=madong-single          # 缓存/store 前缀，多项目隔离
 VITE_APP_STORE_SECURE_KEY=please-replace-me-with-your-own-key   # store 持久化加密密钥
-VITE_APP_ICON_OFFLINE=false               # 是否启用离线图标
+VITE_APP_ICON_OFFLINE=true                # 是否启用离线图标（源码默认值）
 ```
 
 `.env.development`（开发）：
 
 ```ini
-VITE_PORT=5777
+VITE_PORT=5500
 VITE_BASE=/
+VITE_ROUTER_HISTORY=hash                  # hash（默认）| history
 VITE_GLOB_API_URL=/adminapi               # 接口前缀
 
 # Webman Push
@@ -89,7 +90,7 @@ VITE_GLOB_ENABLE_WSS=true
 VITE_GLOB_WSS_URL=ws://127.0.0.1:3501
 VITE_GLOB_WSS_APPKEY=60756ede2a9737a05384aad849e220f8
 
-VITE_NITRO_MOCK=true                      # Nitro Mock 服务
+VITE_NITRO_MOCK=false                     # Nitro Mock 服务，默认关闭
 VITE_DEVTOOLS=false
 VITE_INJECT_APP_LOADING=true
 ```
@@ -110,7 +111,7 @@ VITE_ARCHIVER=false                       # 是否生成 dist.zip
 
 其余环境文件：`.env.integrated`（一体化部署）、`.env.analyze`（体积分析）。
 
-## 2.3.2 web 门户端
+## 2.4.2 web 门户端
 
 ### 安装与启动
 
@@ -147,17 +148,11 @@ web 端支持两种路由来源，通过环境变量 `NUXT_PUBLIC_ROUTING_MODE` 
 
 详见 [3.2.3 页面与路由](../frontend/web/pages.md)。
 
-## 2.3.3 install 安装端
+## 2.4.3 安装向导入口
 
-```bash
-cd template/install
-pnpm install
-pnpm dev
-```
+在线安装向导由后端提供静态页面，**无需单独启动前端工程**。后端启动后访问 `http://127.0.0.1:8500/install` 即可，详见 [2.5 安装向导](wizard.md)。
 
-用于图形化完成数据库初始化，详见 [2.4 安装向导](wizard.md)。
-
-## 2.3.4 常见安装问题
+## 2.4.4 常见安装问题
 
 | 现象 | 原因与处理 |
 | --- | --- |
@@ -167,4 +162,4 @@ pnpm dev
 | 接口 404 / 跨域 | 检查后端是否在 `127.0.0.1:8500` 运行，以及 `vite.config.ts` 的 proxy target |
 | 构建内存溢出 | `build` 脚本已设置 `--max-old-space-size=8192`，若仍溢出可继续调大 |
 
-> 下一节：[2.4 安装向导](wizard.md)
+> 下一节：[2.5 安装向导](wizard.md)

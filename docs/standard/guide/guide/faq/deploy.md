@@ -1,7 +1,7 @@
-﻿# 部署常见问题
+# 部署常见问题
 
 **Q1：502 Bad Gateway？**
-A：Nginx 反代的 8500 端口未监听（后端没启动或被重启）。`supervisorctl status mdadmin-webman` 确认进程存在。
+A：Nginx 反代的 8500 端口未监听（后端没启动或被重启）。`supervisorctl status madong-webman` 确认进程存在。
 
 **Q2：SSE 进度中途断开？**
 A：Nginx `proxy_read_timeout` 太小。调到 120s 以上（见[部署 - Nginx](deploy/nginx.md)）。
@@ -10,7 +10,7 @@ A：Nginx `proxy_read_timeout` 太小。调到 120s 以上（见[部署 - Nginx]
 A：Nginx 未识别 `application/javascript js mjs`。在 `types` 块加入该映射（仓库 `nginx.conf` 已含）。
 
 **Q4：改完代码线上没变？**
-A：常驻内存，需 `supervisorctl restart mdadmin-webman`（或 `php start.php restart`）。CI 中构建与重启分开。
+A：常驻内存，需 `supervisorctl restart madong-webman`（或 `php start.php restart`）。CI 中构建与重启分开。
 
 **Q5：上传/导出大文件超时？**
 A：调大 `proxy_read_timeout` 与 PHP `max_execution_time`；导出走 SSE 时确保不被代理断开。

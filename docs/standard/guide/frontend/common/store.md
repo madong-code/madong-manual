@@ -1,6 +1,6 @@
 # 状态管理
 
-MDAdmin 使用 **Pinia** + `pinia-plugin-persistedstate` 管理状态。
+Madong 极速后台开发框架使用 **Pinia** + `pinia-plugin-persistedstate` 管理状态。
 
 ---
 

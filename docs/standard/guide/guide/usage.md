@@ -1,6 +1,6 @@
-﻿# 文档站使用文档
+# 文档站使用文档
 
-本文档说明 **MDAdmin 文档站**本身的使用方式：如何在本地预览、如何部署到服务器（Nginx / 小皮等）、如何新增与编辑文档、以及静态资源的存放约定。
+本文档说明 **Madong 极速后台开发框架文档站**本身的使用方式：如何在本地预览、如何部署到服务器（Nginx / 小皮等）、如何新增与编辑文档、以及静态资源的存放约定。
 
 文档站基于 [Docsify](https://docsify.js.org/) 构建，**直接读取 `.md` 源文件渲染，无需打包、无需构建**。
 
@@ -45,7 +45,7 @@ Docsify 在浏览器中通过 `fetch` 读取 `.md`，因此**不能直接双击 
 
 ```bash
 # 方式 A：Python（一般系统自带）
-cd d:/MyProject/test/MDAdmin/docs
+cd d:/MyProject/test/madong/docs
 python -m http.server 4000
 # 浏览器打开 http://localhost:4000/
 
@@ -72,7 +72,7 @@ npx serve -l 4000 .
 server {
     listen 80;
     server_name docs.example.com;
-    root /path/to/MDAdmin/docs;   # 指向 docs 目录
+    root /path/to/madong/docs;   # 指向 docs 目录
     index index.html;
 
     location / {

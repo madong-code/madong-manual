@@ -1,4 +1,4 @@
-﻿# 环境变量与构建
+# 环境变量与构建
 
 ---
 
@@ -22,7 +22,7 @@
 
 ```ini
 # 应用标题
-VITE_APP_TITLE=MDAdmin-Saas
+VITE_APP_TITLE=Madong 极速后台开发框架
 
 # 应用命名空间，用于缓存、store 等功能的前缀，确保隔离
 VITE_APP_NAMESPACE=madong-admin-ele
